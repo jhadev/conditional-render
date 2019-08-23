@@ -39,7 +39,6 @@ class App extends Component {
       <div>
         <h1>Hello, {this.state.name}</h1>
         <h1>Age: {this.state.age}</h1>
-        <Display age={this.state.age} />
         <span style={{ fontSize: 40, fontWeight: 'bold' }}>
           {/* conditional render inside the render() -- need to use ternarys */}
           {this.state.age > 0 ? `Want a drink...` : `Your parents are drunk!`}
