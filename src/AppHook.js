@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import Button from './components/Button';
+import Container from './components/Container';
 import Year from './components/Year';
 
 const App = () => {
   const [state, setState] = useState({ name: '', age: 20, yearBorn: 1999 });
 
   useEffect(() => {
-    setState({ ...state, name: 'Ian' });
+    setState({ ...state, name: 'Anonymous' });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -14,7 +15,7 @@ const App = () => {
     setState(currentState => ({ ...currentState, age: currentState.age + 1 }));
   };
 
-  const drinkFromTheFountainOfYouth = () => {
+  const goBackInTime = () => {
     setState(currentState => ({ ...currentState, age: currentState.age - 1 }));
   };
 
@@ -33,26 +34,21 @@ const App = () => {
   };
 
   return (
-    <div>
+    <Container className="text-center mt-5">
       <h1>Hello, {state.name}</h1>
       <h1>Age: {state.age}</h1>
       <Year yearBorn={state.yearBorn} age={state.age} />
-      <span style={{ fontSize: 40, fontWeight: 'bold' }}>
+      <span style={{ fontSize: state.age * 5 || 40, fontWeight: 'bold' }}>
         {/* conditional render inside the return -- need to use ternarys */}
         {state.age > 0 ? `Want a drink...` : `Your parents are drunk!`}
       </span>
       {/* this will run on every render bc we call it like a function */}
       {handleMessage()}
-      <Button color={'success'} handleBirthday={handleBirthday} />
+      <Button color="success" handleBirthday={handleBirthday} />
       {/* if we don't need a second condition can use && */}
       {/* only appears if age in state is greater than 0 */}
-      {state.age > 0 && (
-        <Button
-          color={'danger'}
-          fountainOfYouth={drinkFromTheFountainOfYouth}
-        />
-      )}
-    </div>
+      {state.age > 0 && <Button color="danger" goBackInTime={goBackInTime} />}
+    </Container>
   );
 };
 

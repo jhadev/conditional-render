@@ -7,10 +7,8 @@ const Button = props => {
   return (
     <button
       className={`btn btn-${props.color} btn-lg m-2`}
-      onClick={props.handleBirthday || props.fountainOfYouth}>
-      {props.handleBirthday
-        ? `It's My Birthday`
-        : `Drink From The Fountain Of Youth`}
+      onClick={props.handleBirthday || props.goBackInTime}>
+      {props.handleBirthday ? `It's My Birthday` : `Go Back In Time`}
     </button>
   );
 };

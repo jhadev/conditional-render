@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import Button from './components/Button';
+import Container from './components/Container';
+import Year from './components/Year';
 
 class App extends Component {
-  state = { name: '', age: 16 };
+  state = { name: '', age: 20, yearBorn: 1999 };
 
   componentDidMount() {
     // on mount of the app component this happens AFTER the render()
@@ -13,9 +15,10 @@ class App extends Component {
     // this works too
     // this.setState({ age: this.state.age + 1 });
     this.setState(prevState => ({ age: prevState.age + 1 }));
+    // console.log(this.state.age);
   };
 
-  drinkFromTheFountainOfYouth = () => {
+  goBackInTime = () => {
     this.setState(prevState => ({ age: prevState.age - 1 }));
   };
 
@@ -34,27 +37,26 @@ class App extends Component {
   };
 
   render() {
-    // console.log(this.state);
+    console.log(this.state);
     return (
-      <div>
+      <Container className="text-center mt-5">
         <h1>Hello, {this.state.name}</h1>
         <h1>Age: {this.state.age}</h1>
-        <span style={{ fontSize: 40, fontWeight: 'bold' }}>
+        <Year age={this.state.age} yearBorn={this.state.yearBorn} />
+        <span
+          style={{ fontSize: this.state.age * 5 || 40, fontWeight: 'bold' }}>
           {/* conditional render inside the render() -- need to use ternarys */}
           {this.state.age > 0 ? `Want a drink...` : `Your parents are drunk!`}
         </span>
         {/* this will run on every render bc we call it like a method */}
         {this.handleMessage()}
-        <Button color={'success'} handleBirthday={this.handleBirthday} />
+        <Button color="success" handleBirthday={this.handleBirthday} />
         {/* if we don't need a second condition can use && */}
         {/* only appears if age in state is greater than 0 */}
         {this.state.age > 0 && (
-          <Button
-            color={'danger'}
-            fountainOfYouth={this.drinkFromTheFountainOfYouth}
-          />
+          <Button color="danger" goBackInTime={this.goBackInTime} />
         )}
-      </div>
+      </Container>
     );
   }
 }
