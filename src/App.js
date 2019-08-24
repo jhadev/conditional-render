@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import Button from './components/Button';
 import Container from './components/Container';
-import Year from './components/Year';
+import Display from './components/Display';
 
 class App extends Component {
-  state = { name: '', age: 20, yearBorn: 1999 };
+  state = { name: '', age: 0, yearBorn: 0 };
 
   componentDidMount() {
     // on mount of the app component this happens AFTER the render()
-    this.setState({ name: 'Your Name Here' });
+    this.setState({ name: 'Your Name Here', age: 20, yearBorn: 1999 });
   }
 
   handleBirthday = () => {
@@ -40,16 +40,18 @@ class App extends Component {
     console.log(this.state);
     return (
       <Container className="text-center mt-5">
-        <h1>Hello, {this.state.name}</h1>
-        <h1>Age: {this.state.age}</h1>
-        <Year age={this.state.age} yearBorn={this.state.yearBorn} />
-        <span
-          style={{ fontSize: this.state.age * 5 || 40, fontWeight: 'bold' }}>
-          {/* conditional render inside the render() -- need to use ternarys */}
-          {this.state.age > 0 ? `Want a drink...` : `Your parents are drunk!`}
-        </span>
-        {/* this will run on every render bc we call it like a method */}
-        {this.handleMessage()}
+        <Display
+          name={this.state.name}
+          age={this.state.age}
+          yearBorn={this.state.yearBorn}>
+          <span
+            style={{ fontSize: this.state.age * 5 || 40, fontWeight: 'bold' }}>
+            {/* conditional render inside the render() -- need to use ternarys */}
+            {this.state.age > 0 ? `Want a drink?` : `Your parents are drunk!`}
+          </span>
+          {/* this will run on every render bc we call it like a method */}
+          {this.handleMessage()}
+        </Display>
         <Button color="success" handleBirthday={this.handleBirthday} />
         {/* if we don't need a second condition can use && */}
         {/* only appears if age in state is greater than 0 */}
