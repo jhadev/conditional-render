@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 import Button from './components/Button';
 import Container from './components/Container';
 import Display from './components/Display';
+import Card from './components/Card';
+import baby from './images/babybeer.png';
+import mclovin from './images/mclovin.jpg';
+import happy from './images/happy.jpg';
+import nope from './images/nope.jpg';
 
 class App extends Component {
   state = { name: '', age: 0, yearBorn: 0 };
@@ -24,40 +29,69 @@ class App extends Component {
 
   handleMessage = () => {
     // conditional render outside of the render()
-    // rendering h1 tags based on state values
+    // rendering cards based on state values
     if (this.state.age >= 21) {
-      return <h1>Time to hit the bar!</h1>;
+      return (
+        <Card>
+          <h1>Time to hit the bar!</h1>
+          <img className="img-fluid" src={happy} alt="happy" />
+        </Card>
+      );
     } else if (this.state.age < 21 && this.state.age >= 16) {
-      return <h1>Get A Fake ID!</h1>;
+      return (
+        <Card>
+          <h1>Get A Fake ID!</h1>
+          <img className="img-fluid" src={mclovin} alt="mclovin" />
+        </Card>
+      );
     } else if (this.state.age === 0) {
-      return <h1>You were just born {';)'}</h1>;
+      return (
+        <Card>
+          <h1>You were just born {';)'}</h1>
+          <img className="img-fluid w-75" src={baby} alt="baby" />
+        </Card>
+      );
     } else {
-      return <h1>Don't even think about it!</h1>;
+      return (
+        <Card>
+          <h1>Don't even think about it!</h1>
+          <img className="img-fluid w-100" src={nope} alt="nope" />
+        </Card>
+      );
     }
   };
 
   render() {
     console.log(this.state);
     return (
-      <Container className="text-center mt-5">
+      <Container className="text-center m-2">
         <Display
           name={this.state.name}
           age={this.state.age}
           yearBorn={this.state.yearBorn}>
-          <span
-            style={{ fontSize: this.state.age * 5 || 40, fontWeight: 'bold' }}>
-            {/* conditional render inside the render() -- need to use ternarys */}
-            {this.state.age > 0 ? `Want a drink?` : `Your parents are drunk!`}
-          </span>
-          {/* this will run on every render bc we call it like a method */}
-          {this.handleMessage()}
+          <div id="msg-text">
+            {this.state.age > 0
+              ? `Want a drink?`
+              : `Your parents need a drink!`}
+          </div>
+          <Button
+            lg
+            color={'success'}
+            text={`It's My Birthday!`}
+            handleClick={this.handleBirthday}
+          />
+          {this.state.age > 0 && (
+            <Button
+              lg
+              color={'danger'}
+              text={'Go Back In Time!'}
+              handleClick={this.goBackInTime}
+            />
+          )}
+          <div className="row justify-content-center">
+            <div className="col-6">{this.handleMessage()}</div>
+          </div>
         </Display>
-        <Button color="success" handleBirthday={this.handleBirthday} />
-        {/* if we don't need a second condition can use && */}
-        {/* only appears if age in state is greater than 0 */}
-        {this.state.age > 0 && (
-          <Button color="danger" goBackInTime={this.goBackInTime} />
-        )}
       </Container>
     );
   }

@@ -1,0 +1,18 @@
+body {
+  background-color: #343a40 !important
+}
+
+h1 {
+  color: #fff
+}
+
+.card-body>h1 {
+  color: #343a40
+}
+
+#msg-text {
+  font-size: 40px;
+  font-weight: bold;
+  margin: 20px;
+  color: #fff
+}
