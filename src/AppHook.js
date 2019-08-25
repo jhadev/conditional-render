@@ -1,10 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import Button from './components/Button';
 import Container from './components/Container';
+import Form from './components/Form';
 import Display from './components/Display';
+import { useForm } from './hooks/useForm';
 
 const App = () => {
   const [state, setState] = useState({ name: '', age: 0, yearBorn: 0 });
+
+  const { formState, setFormState, onChange } = useForm({
+    name: '',
+    password: ''
+  });
+
+  const mapForm = Object.entries(formState);
+
+  console.log(formState);
 
   useEffect(() => {
     setState({ name: 'Your Name Here', age: 20, yearBorn: 1999 });
@@ -35,7 +46,7 @@ const App = () => {
 
   return (
     <Container className="text-center mt-5">
-      <Display name={state.name} age={state.age} yearBorn={state.yearBorn}>
+      <Display name={formState.name} age={state.age} yearBorn={state.yearBorn}>
         <span style={{ fontSize: state.age * 5 || 40, fontWeight: 'bold' }}>
           {/* conditional render inside the render() -- need to use ternarys */}
           {state.age > 0 ? `Want a drink...` : `Your parents are drunk!`}
@@ -47,6 +58,22 @@ const App = () => {
       {/* if we don't need a second condition can use && */}
       {/* only appears if age in state is greater than 0 */}
       {state.age > 0 && <Button color="danger" goBackInTime={goBackInTime} />}
+      <Form />
+      <div className="form-group">
+        {mapForm.map(([key, value]) => {
+          return (
+            <input
+              className="form-control mb-2"
+              key={key}
+              placeholder={key.charAt(0).toUpperCase() + key.slice(1)}
+              name={key}
+              type={key}
+              value={value}
+              onChange={onChange}
+            />
+          );
+        })}
+      </div>
     </Container>
   );
 };
