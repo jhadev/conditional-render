@@ -3,7 +3,6 @@ import Button from './components/Button';
 import Container from './components/Container';
 import Form from './components/Form';
 import Display from './components/Display';
-import { useForm } from './hooks/useForm';
 
 const App = () => {
   const [state, setState] = useState({ name: '', age: 0, yearBorn: 0 });
@@ -42,7 +41,7 @@ const App = () => {
   };
 
   return (
-    <Container className="text-center mt-5">
+    <Container fluid className="text-center mt-5">
       <Display name={state.name} age={state.age} yearBorn={state.yearBorn}>
         <span style={{ fontSize: state.age * 5 || 40, fontWeight: 'bold' }}>
           {/* conditional render inside the render() -- need to use ternarys */}
