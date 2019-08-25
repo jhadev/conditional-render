@@ -1,31 +1,26 @@
 import React from 'react';
 import { useForm } from '../hooks/useForm';
+import Button from './Button';
 
-const Form = () => {
-  const { formState, setFormState, onChange } = useForm({
-    name: '',
-    password: ''
+const Form = props => {
+  const { formState, setFormState, onChange, mapInputs } = useForm({
+    name: ''
   });
 
-  const mapForm = Object.entries(formState);
-
-  console.log(formState);
+  const displayInputs = mapInputs(formState);
 
   return (
-    <div className="form-group">
-      {mapForm.map(([key, value]) => {
-        return (
-          <input
-            className="form-control mb-2"
-            key={key}
-            placeholder={key.charAt(0).toUpperCase() + key.slice(1)}
-            name={key}
-            type={key}
-            value={value}
-            onChange={onChange}
-          />
-        );
-      })}
+    <div>
+      <div className="form-group">{displayInputs()}</div>
+      <Button
+        color={'primary'}
+        disabled={formState.name === ''}
+        handleClick={() => {
+          props.updateName(formState.name);
+          setFormState({ name: '' });
+        }}>
+        Update Name
+      </Button>
     </div>
   );
 };
