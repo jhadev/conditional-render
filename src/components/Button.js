@@ -13,6 +13,7 @@ const Button = props => {
   } else {
     size = '';
   }
+
   return (
     <button
       className={`m-2 btn btn-${props.color} ${size}`}

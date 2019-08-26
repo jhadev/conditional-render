@@ -51,7 +51,9 @@ const Display = props => {
                 </Card>
               )}
             </div>
-          ) : null}
+          ) : (
+            <h2>Just Say No!</h2>
+          )}
         </div>
         <div className="col-6">
           <div>{props.children}</div>
