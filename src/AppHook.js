@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Button from './components/Button';
 import Container from './components/Container';
-import Display from './components/Display';
+import Display from './components/DisplayEffect';
 import Card from './components/Card';
 import baby from './images/babybeer.png';
 import mclovin from './images/mclovin.jpg';
@@ -57,13 +57,14 @@ const App = () => {
   };
 
   return (
-    <Container className="text-center m-2">
+    <Container className="text-center m-5">
       <Display name={state.name} age={state.age} yearBorn={state.yearBorn}>
         <div
           style={{
             fontSize: 40,
             fontWeight: 'bold',
-            margin: 20
+            marginBottom: 20,
+            color: '#fff'
           }}>
           {state.age > 0 ? `Want a drink?` : `Your parents need a drink!`}
         </div>
@@ -81,9 +82,8 @@ const App = () => {
             handleClick={goBackInTime}
           />
         )}
-        <div className="row justify-content-center">
-          <div className="col-6">{handleMessage()}</div>
-        </div>
+
+        <div>{handleMessage()}</div>
       </Display>
     </Container>
   );

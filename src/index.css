@@ -2,7 +2,9 @@ body {
   background-color: #343a40 !important
 }
 
-h1 {
+h1,
+h3,
+h5 {
   color: #fff
 }
 
