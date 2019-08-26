@@ -9,6 +9,7 @@ import happy from './images/happy.jpg';
 import nope from './images/nope.jpg';
 
 class App extends Component {
+  // initialize state with default values
   state = { name: '', age: 0, yearBorn: 0 };
 
   componentDidMount() {
@@ -20,7 +21,7 @@ class App extends Component {
     // this works too
     // this.setState({ age: this.state.age + 1 });
     this.setState(prevState => ({ age: prevState.age + 1 }));
-    // console.log(this.state.age);
+    // console.log(this.state.age); DOES NOT SHOW US FRESHEST STATE
   };
 
   goBackInTime = () => {

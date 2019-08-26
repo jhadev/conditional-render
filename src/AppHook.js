@@ -59,13 +59,7 @@ const App = () => {
   return (
     <Container className="text-center m-5">
       <Display name={state.name} age={state.age} yearBorn={state.yearBorn}>
-        <div
-          style={{
-            fontSize: 40,
-            fontWeight: 'bold',
-            marginBottom: 20,
-            color: '#fff'
-          }}>
+        <div id="msg-text">
           {state.age > 0 ? `Want a drink?` : `Your parents need a drink!`}
         </div>
         <Button
@@ -82,7 +76,6 @@ const App = () => {
             handleClick={goBackInTime}
           />
         )}
-
         <div>{handleMessage()}</div>
       </Display>
     </Container>
