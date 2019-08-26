@@ -6,27 +6,27 @@ const Display = props => {
   const [apiResponse, setApiResponse] = useState(null);
 
   useEffect(() => {
-    if (props.age >= 16) {
-      const getBeers = async () => {
-        try {
-          const response = await axios.get(
-            `https://api.punkapi.com/v2/beers/random`
-          );
+    const getBeers = async () => {
+      try {
+        const response = await axios.get(
+          `https://api.punkapi.com/v2/beers/random`
+        );
 
-          const [beer] = response.data;
-          const { abv, name, description, image_url } = beer;
-          setApiResponse({ abv, name, description, image_url });
-        } catch (err) {
-          console.log(err);
-        }
-      };
+        const [beer] = response.data;
+        const { abv, name, description, image_url } = beer;
+        setApiResponse({ abv, name, description, image_url });
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    if (props.age >= 16) {
       getBeers();
     } else {
       setApiResponse(null);
     }
   }, [props.age]);
 
-  console.log(apiResponse);
   const currentYear = props.age + props.yearBorn;
   return (
     <>
