@@ -21,22 +21,51 @@ const useForm = initialState => {
   // return a closure that uses the state object to map inputs as JSX
   const mapInputs = state => {
     const stateArr = Object.entries(state);
-    return () => {
-      return stateArr.map(([key, value], index) => (
-        // index as key is an anti-pattern but it is perfect in this case.
-        <React.Fragment key={index}>
-          <label htmlFor={`${key}-${index}`}>{`Enter your ${key}.`}</label>
-          <input
-            className={'form-control mb-2'}
-            id={`${key}-${index}`}
-            type={key}
-            placeholder={key.charAt(0).toUpperCase() + key.slice(1)}
-            name={key}
-            value={value}
-            onChange={onChange}
-          />
-        </React.Fragment>
-      ));
+    console.log(stateArr);
+    return args => {
+      if (args) {
+        args = [...args];
+      }
+      // } else if (args.length !== stateArr.length) {
+      //   args = [...args]
+
+      //   args.length = stateArr.length
+      //    args = args.map((arg, index) => {
+      //     if (arg.name === stateArr[index][0]) {
+      //       arg = arg.fin
+      //     }
+      //   })
+
+      // }
+      else {
+        args = [];
+        args.length = stateArr.length;
+        args = [...args].map(() => ({}));
+      }
+      return stateArr.map(([key, value], index) => {
+        // index as key is an anti-pattern but it is perfect in this case
+        console.log(index);
+
+        return (
+          <React.Fragment key={index}>
+            <label htmlFor={args[index].id || `${key}-${index}`}>
+              {args[index].label || `Enter your ${key}`}
+            </label>
+            <input
+              className={args[index].className || `form-control mb-2`}
+              id={args[index].id || `${key}-${index}`}
+              type={args[index].type || key}
+              placeholder={
+                args[index].placeholder ||
+                `${key.charAt(0).toUpperCase() + key.slice(1)}`
+              }
+              name={key}
+              value={value}
+              onChange={onChange}
+            />
+          </React.Fragment>
+        );
+      });
     };
   };
 
